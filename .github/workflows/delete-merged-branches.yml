@@ -1,0 +1,31 @@
+name: Delete merged branches (except protected)
+
+on:
+  pull_request:
+    types:
+      - closed
+
+jobs:
+  delete-branch:
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.merged == true
+    steps:
+      - name: Delete branch if not protected
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const protectedBranches = ['main', 'dev'];
+            const branch = context.payload.pull_request.head.ref;
+
+            if (!protectedBranches.includes(branch)) {
+              // Delete the branch from the remote
+              await github.rest.git.deleteRef({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                ref: `heads/${branch}`,
+              });
+              console.log(`Branch ${branch} deleted.`);
+            } else {
+              console.log(`Branch ${branch} is protected. Not deleted.`);
+            }
