@@ -98,3 +98,21 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 
 Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
 
+## Known vulnerabilities
+
+This learning project uses NestJS 10.x and depends on packages like multer, which currently has known vulnerabilities (see the output of `npm audit`).  
+No forced changes have been made to avoid breaking compatibility while learning.
+
+**Do not use this code in production without resolving these vulnerabilities first!**
+
+---
+
+## Possible solutions
+
+- Manually update dependencies when compatible and secure versions are released.
+- Check official repositories and issues for recommendations about safe versions with NestJS 10.x.
+- Use `npm audit fix --force` only if you understand the risks and can restore your project in case of incompatibilities.
+- In production, prioritize security and make sure all dependencies are updated and free from known vulnerabilities.
+- If you choose to ignore alerts in a testing environment, document this clearly.
+
+---
