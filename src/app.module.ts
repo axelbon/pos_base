@@ -11,6 +11,7 @@ import typeOrmConfig from './typeorm.config';
 import { ConfigModule } from '@nestjs/config';
 import { CategoryModule } from './category/category.module';
 import { BrandModule } from './brand/brand.module';
+import { InventoryModuleModule } from './inventory_module/inventory_module.module';
 
 @Module({
   imports: [
@@ -24,7 +25,8 @@ import { BrandModule } from './brand/brand.module';
     }),
     TypeOrmModule.forRoot(typeOrmConfig),
     CategoryModule,
-    BrandModule
+    BrandModule,
+    InventoryModuleModule
   ],
   controllers: [AppController],
   providers: [AppService],
