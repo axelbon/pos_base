@@ -12,7 +12,7 @@ export class ProductController {
 
 
   @ApiOperation({summary: 'Create product'})
-  @ApiResponse({status: 200, description: 'Product created succesfully', type: [Product]})
+  @ApiResponse({status: 200, description: 'Product created succesfully', type: Product})
   @Post()
   create(@Body() createProductDto: CreateProductDto): Promise<Product> {
     return this.productService.create(createProductDto);
@@ -26,7 +26,7 @@ export class ProductController {
   }
 
   @ApiOperation({summary: 'Finds one product with given id'})
-  @ApiResponse({status: 200, description: 'Finds one product with given id', type: [Product]})
+  @ApiResponse({status: 200, description: 'Finds one product with given id', type: Product})
   @ApiResponse({status: 404, description: 'Product not found'})
   @Get(':id')
   findOne(@Param('id') id: string): Promise<Product> {
@@ -34,7 +34,7 @@ export class ProductController {
   }
 
   @ApiOperation({summary: 'Updates product with given id'})
-  @ApiResponse({status: 200, description: 'Product updated', type: [Product]})
+  @ApiResponse({status: 200, description: 'Product updated', type: Product})
   @ApiResponse({status: 404, description: 'Product not found'})
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateProductDto: UpdateProductDto) {
