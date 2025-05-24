@@ -11,7 +11,7 @@ export class CategoryController {
   constructor(private readonly categoryService: CategoryService) {}
 
   @ApiOperation({summary: 'Create category'})
-  @ApiResponse({status: 200, description: 'Category created succesfully', type: Category})
+  @ApiResponse({status: 200, description: 'Category created successfully', type: Category})
   @Post()
   create(@Body() createCategoryDto: CreateCategoryDto): Promise<Category> {
     return this.categoryService.create(createCategoryDto);
@@ -32,7 +32,7 @@ export class CategoryController {
     return this.categoryService.findOne(id);
   }
 
-  @ApiOperation({summary: 'Updates categoty with given id'})
+  @ApiOperation({summary: 'Updates category with given id'})
   @ApiResponse({status: 200, description: 'Category updated', type: Category})
   @ApiResponse({status: 404, description: 'Category not found'})
   @Patch(':id')

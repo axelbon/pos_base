@@ -55,7 +55,7 @@ export class CategoryService {
     const category = await this.categoryRepository.findOneBy({id});
 
     if(!category){
-      throw new NotFoundException('Product not found');
+      throw new NotFoundException('Category not found');
     }
 
     return await this.categoryRepository.softDelete({id});
