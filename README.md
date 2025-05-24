@@ -116,3 +116,9 @@ No forced changes have been made to avoid breaking compatibility while learning.
 - If you choose to ignore alerts in a testing environment, document this clearly.
 
 ---
+
+## Codecov
+
+[![codecov](https://codecov.io/gh/axelbon/pos_base/branch/main/graph/badge.svg)](https://codecov.io/gh/axelbon/pos_base)
+
+---
