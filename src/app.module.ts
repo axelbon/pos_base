@@ -10,6 +10,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import typeOrmConfig from './typeorm.config';
 import { ConfigModule } from '@nestjs/config';
 import { CategoryModule } from './category/category.module';
+import { BrandModule } from './brand/brand.module';
 
 @Module({
   imports: [
@@ -22,7 +23,8 @@ import { CategoryModule } from './category/category.module';
       isGlobal: true,
     }),
     TypeOrmModule.forRoot(typeOrmConfig),
-    CategoryModule
+    CategoryModule,
+    BrandModule
   ],
   controllers: [AppController],
   providers: [AppService],
