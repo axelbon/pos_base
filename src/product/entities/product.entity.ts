@@ -38,7 +38,7 @@ export class Product {
     min_stock: number;
 
     @Column()
-    max_stock: number;
+    max_stock?: number;
 
     @Column()
     barcode: string;
