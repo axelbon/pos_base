@@ -1,6 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { ProductController } from './product.controller';
 import { ProductService } from './product.service';
+import { getRepositoryToken } from '@nestjs/typeorm';
+import { Product } from './entities/product.entity';
 
 describe('ProductController', () => {
   let controller: ProductController;
@@ -8,7 +10,18 @@ describe('ProductController', () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [ProductController],
-      providers: [ProductService],
+      providers: [
+        ProductService,
+        {
+          provide: getRepositoryToken(Product),
+          useValue: {
+            find: jest.fn(),
+            findOne: jest.fn(),
+            save: jest.fn(),
+            // agrega aquí los métodos que use tu ProductService
+          },
+        },
+      ],
     }).compile();
 
     controller = module.get<ProductController>(ProductController);
