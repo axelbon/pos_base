@@ -1,8 +1,10 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
 import { InventoryModuleService } from './inventory_module.service';
 import { CreateInventoryModuleDto } from './dto/create-inventory_module.dto';
 import { UpdateInventoryModuleDto } from './dto/update-inventory_module.dto';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 
+@UseGuards(JwtAuthGuard)
 @Controller('inventory-module')
 export class InventoryModuleController {
   constructor(private readonly inventoryModuleService: InventoryModuleService) {}

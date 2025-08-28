@@ -1,26 +1,32 @@
-import { Injectable } from '@nestjs/common';
-import { CreateAuthDto } from './dto/create-auth.dto';
-import { UpdateAuthDto } from './dto/update-auth.dto';
+import { ConflictException, Injectable, UnauthorizedException } from '@nestjs/common';
+import * as bcrypt from 'bcrypt';
+import { JwtService } from '@nestjs/jwt';
+import { SignupDto } from './dto/signup.dto';
+import { SigninDto } from './dto/signin.dto';
+
+
+const users: { email: string, password: string }[] = [];
 
 @Injectable()
 export class AuthService {
-  create(createAuthDto: CreateAuthDto) {
-    return 'This action adds a new auth';
+  constructor(private readonly jwtService: JwtService){}
+
+  async signup(dto: SignupDto): Promise<{ access_token: string }>{
+    const exists = users.find(u => u.email === dto.email);
+    if(exists) throw new ConflictException('User already exists');
+    const hash = await bcrypt.hash(dto.password, 10);
+    users.push({email: dto.email, password: hash});
+    const access_token = await this.jwtService.signAsync({ email: dto.email });
+    return { access_token };
   }
 
-  findAll() {
-    return `This action returns all auth`;
+  async signin(dto: SigninDto): Promise<{ access_token: string }> {
+    const user = users.find(u => u.email === dto.email);
+    if(!user) throw new UnauthorizedException('Invalid credentials');
+    const match = await bcrypt.compare(dto.password, user.password);
+    if(!match) throw new UnauthorizedException('Invalid credentials');
+    const access_token = await this.jwtService.signAsync({ email: dto.email });
+    return { access_token };
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} auth`;
-  }
-
-  update(id: number, updateAuthDto: UpdateAuthDto) {
-    return `This action updates a #${id} auth`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} auth`;
-  }
 }
