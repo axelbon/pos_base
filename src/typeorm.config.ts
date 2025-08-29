@@ -10,8 +10,8 @@ const config: TypeOrmModuleOptions = {
   username: process.env.DB_USERNAME,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_DATABASE,
-  entities: ['dist/**/*.entity.js'],
-  migrations: ['dist/migrations/*.js'],
+  //entities: ['dist/**/*.entity.js'],
+  //migrations: ['dist/migrations/*.js'],
   synchronize: false,
 };
 

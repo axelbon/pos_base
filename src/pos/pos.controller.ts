@@ -1,8 +1,10 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
 import { PosService } from './pos.service';
 import { CreatePoDto } from './dto/create-po.dto';
 import { UpdatePoDto } from './dto/update-po.dto';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 
+@UseGuards(JwtAuthGuard)
 @Controller('pos')
 export class PosController {
   constructor(private readonly posService: PosService) {}
