@@ -35,10 +35,23 @@ pipeline {
     }
 
     stage('Deploy') {
-      steps {
         echo 'Deploying...'
-        bat 'deploy.bat' // solo el nombre, sin "./"
-      }
+        bat """
+        REM Instalar PM2 si no está instalado
+        npm install -g pm2
+    
+        REM Ir a la carpeta del proyecto
+        cd %WORKSPACE%
+    
+        REM Instalar solo dependencias de producción
+        npm install --production
+    
+        REM Correr migraciones (opcional si usas TypeORM)
+        npm run migration:run
+    
+        REM Iniciar o reiniciar la app con PM2
+        pm2 start dist/main.js --name pos_base --update-env || pm2 restart pos_base
+        """
     }
   }
 
