@@ -3,27 +3,33 @@ pipeline {
   stages {
     stage('Install') {
       steps {
-        sh 'npm install'
+        bat 'npm install'
       }
     }
     stage('Lint') {
       steps {
-        sh 'npm run lint'
+        bat 'npm run lint'
       }
     }
     stage('Build') {
       steps {
-        sh 'npm run build'
+        bat 'npm run build'
       }
     }
     stage('Test') {
       steps {
-        sh 'npm run test -- --coverage'
+        bat 'npm run test -- --coverage'
+      }
+      post {
+        always {
+          echo 'Tests finished'
+          // Puedes agregar reportes JUnit o cobertura aquí
+        }
       }
     }
     stage('Deploy') {
       steps {
-        sh './deploy.sh'
+        bat './deploy.bat'
       }
     }
   }
