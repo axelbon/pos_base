@@ -33,25 +33,27 @@ pipeline {
         bat 'npm run test:cov'
       }
     }
-
+    
     stage('Deploy') {
-        echo 'Deploying...'
-        bat """
-        REM Instalar PM2 si no está instalado
-        npm install -g pm2
+        steps {
+            echo 'Deploying...'
+            bat """
+            REM Instalar PM2 si no está instalado
+            npm install -g pm2
     
-        REM Ir a la carpeta del proyecto
-        cd %WORKSPACE%
+            REM Ir a la carpeta del proyecto
+            cd %WORKSPACE%
     
-        REM Instalar solo dependencias de producción
-        npm install --production
+            REM Instalar solo dependencias de producción
+            npm install --production
     
-        REM Correr migraciones (opcional si usas TypeORM)
-        npm run migration:run
+            REM Correr migraciones (opcional si usas TypeORM)
+            npm run migration:run
     
-        REM Iniciar o reiniciar la app con PM2
-        pm2 start dist/main.js --name pos_base --update-env || pm2 restart pos_base
-        """
+            REM Iniciar o reiniciar la app con PM2
+            pm2 start dist/main.js --name pos_base --update-env || pm2 restart pos_base
+            """
+        }
     }
   }
 
