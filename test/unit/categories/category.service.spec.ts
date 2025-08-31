@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { CategoryService } from './category.service';
+import { CategoryService } from '../../../src/category/category.service';
 import { getRepositoryToken } from '@nestjs/typeorm';
-import { Category } from './entities/category.entity';
+import { Category } from '../../../src/category/entities/category.entity';
 
 describe('CategoryService', () => {
   let service: CategoryService;
