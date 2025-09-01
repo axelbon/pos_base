@@ -53,6 +53,20 @@ describe('CategoryService', () => {
     expect(result).toEqual(savedCategory);
   });
 
+  it('create, should throw an error when save fails', async () => {
+    const dto = { name: 'cat', description: 'descr'};
+    const createdCategory = {...dto};
+    const error = new Error('error');
+
+    repo.create.mockReturnValue(createdCategory);
+    repo.save.mockRejectedValue(error);
+
+    await expect(service.create(dto)).rejects.toBe(error);
+
+    expect(repo.create).toHaveBeenCalledWith(dto);
+    expect(repo.save).toHaveBeenCalledWith(createdCategory);
+  });
+
   it('findAll, should return an array of categories', async () => {
     const categories = [
       { id: '1', name: 'cat1' },
@@ -110,7 +124,7 @@ describe('CategoryService', () => {
     expect(result).toEqual({id, ...dto});
   });
 
-  it('update, should return Category not found in update', async () => {
+  it('update, should return Category not found', async () => {
     const id = '1';
     const dto = { name: 'cat', description: 'descr'};
 
@@ -137,6 +151,16 @@ describe('CategoryService', () => {
 
     expect(result).toEqual(softDeleteResult);
 
+  });
+
+  it('delete, should return Category not found', async () => {
+    const id = '1';
+    repo.findOneBy.mockResolvedValue(null);
+
+    await expect(service.remove(id)).rejects.toThrow('Category not found');
+
+    expect(repo.findOneBy).toHaveBeenCalledWith({id});
+    expect(repo.softDelete).not.toHaveBeenCalled();
   });
 
 });
