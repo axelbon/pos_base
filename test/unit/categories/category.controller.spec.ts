@@ -1,9 +1,9 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { CategoryController } from './category.controller';
-import { CategoryService } from './category.service';
-import { Category } from './entities/category.entity';
-import { CreateCategoryDto } from './dto/create-category.dto';
-import { UpdateCategoryDto } from './dto/update-category.dto';
+import { CategoryController } from '../../../src/category/category.controller';
+import { CategoryService } from '../../../src/category/category.service';
+import { Category } from '../../../src/category/entities/category.entity';
+import { CreateCategoryDto } from '../../../src/category/dto/create-category.dto';
+import { UpdateCategoryDto } from '../../../src/category/dto/update-category.dto';
 import { NotFoundException } from '@nestjs/common';
 
 
